@@ -47,7 +47,7 @@
 </script>
 
 <div class="flex flex-col items-center justify-center h-screen">
-  <div class="messages h-fit">
+  <div class="messages h-fit overflow-y-auto">
     {#each messages as message (message.id)}
       <div class=" login-text msg flex flex-row">
         <img
@@ -64,13 +64,15 @@
           <p class="msg-text login-text">{message.text}</p>
         </div>
         {#if $currentUser.username == message.expand?.user?.username}
-        <div on:click={() => deleteMessage(message.id)} on:keypress={() => deleteMessage(message.id)} class="h-fit w-fit justify-items-end ml-auto" >
-        <Icon  class="delete-msg justify-self-end" icon="fa6-solid:x" width="12" height="12" />  
-        </div> 
+        <button on:click={() => deleteMessage(message.id)} on:keypress={() => deleteMessage(message.id)} class="inline-block h-fit w-fit justify-items-end ml-auto align-middle" >
+        <Icon  class="delete-msg justify-self-end align-middle" icon="fa6-solid:x" width="12" height="12" />  
+        </button> 
         {/if}
       </div>
     {/each}
   </div>
+  <span class="flex flex-row">
+  <Icon icon="material-symbols:arrow-back-ios-new-rounded" class="nav-icon-no-size h-auto"/>
   <form class="flex" on:submit|preventDefault={sendMessage}>
     <input
       class="login-text flex items-center bg-gray-900"
@@ -80,4 +82,6 @@
     />
     <button class="login-button" type="submit">Send</button>
   </form>
+  <Icon icon="material-symbols:arrow-back-ios-new-rounded" rotate={2} class="nav-icon-no-size h-auto" />
+</span>
 </div>

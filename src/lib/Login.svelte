@@ -56,8 +56,8 @@
         class="login-text flex justify-center"
       />
       <div class="flex">
-        <button class="login-button" on:click={signUp}>Sign Up</button>
         <button class="login-button" on:click={login}>Login</button>
+        <button class="login-button" on:click={signUp}>Sign Up</button>
       </div>
     </form>
   {/if}
