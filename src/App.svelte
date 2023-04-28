@@ -21,8 +21,8 @@
         <Nav
           width="20"
           height="20"
-          icon="fa6-solid:fire"
-          tooltip="tooltip"
+          icon="material-symbols:chat"
+          tooltip="Chat"
           clazz="nav-icon"
         />
         <Nav
@@ -46,7 +46,7 @@
           tooltip="tooltip"
           clazz="nav-icon"
         />
-        <span on:click={signOut} on:keypress={signOut}>
+        <button  class="nav-icon-logout" on:click={signOut} on:keypress={signOut}>
           <Nav
             width="20"
             height="20"
@@ -54,7 +54,7 @@
             tooltip="Logout"
             clazz="nav-icon-logout"
           />
-        </span>
+        </button>
       </div>
     </div>
 

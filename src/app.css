@@ -31,7 +31,7 @@
                 cursor-pointer;
   }
   .nav-tooltip {
-    @apply absolute w-auto p-2 m-2 min-w-max left-14
+    @apply absolute w-auto p-2 m-2 min-w-max left-14 select-none
             rounded-md shadow-md
             text-white bg-gray-900
             text-xs font-bold

@@ -10,6 +10,16 @@
   let index: number = 1;
   let isDisabledb: boolean = true;
   let isDisabledf: boolean = false;
+  let innerHeight;
+  let mid;
+  let numMessages;
+
+  $: numMessages = Math.floor((innerHeight-72)/57)
+      
+   $:{   if(messages.length >= numMessages){
+        isDisabledf = false;
+        console.log("dyn ",isDisabledf)
+      };}
 
   onMount(async () => {
     const resultList = await pb.collection("messages").getList(1, 250, {
@@ -25,6 +35,7 @@
           const user = await pb.collection("users").getOne(record.user);
           record.expand = { user };
           messages = [...messages, record];
+          console.log(messages.length)
         }
         if (action === "delete") {
           messages = messages.filter((m) => m.id !== record.id);
@@ -50,7 +61,7 @@
   }
 
   function nextPage() {
-    let totalPages = Math.ceil(messages.length / 20);
+    let totalPages = Math.ceil(messages.length / numMessages);
     // console.log(messages.length);
     //console.log(mid);
 
@@ -60,9 +71,13 @@
       isDisabledb = false;
       if (index >= totalPages) {
         isDisabledf = true;
+  console.log(isDisabledb);
+  console.log(isDisabledf);
       }
     } else {
       isDisabledf = true;
+  console.log(isDisabledb);
+  console.log(isDisabledf);
     }
   }
   function prevPage() {
@@ -74,32 +89,35 @@
       if (index <= 1) {
         //console.log('back is disabled2');
         isDisabledb = true;
+  console.log(isDisabledb);
+  console.log(isDisabledf);
       }
     } else {
       //console.log('back is disabled');
       isDisabledb = true;
+  console.log(isDisabledb);
+  console.log(isDisabledf);
     }
   }
 
-  console.log(isDisabledb);
-  console.log(isDisabledf);
+  //console.log(isDisabledb);
+  //console.log(isDisabledf);
 </script>
-
+<svelte:window bind:innerHeight/>
 <div class="flex flex-col items-center justify-center h-screen">
   <div class="messages h-fit overflow-y-auto">
     {#each messages.slice().reverse() as message, id (message.id)}
-      {#if id < index * 20 && id >= index * 20 - 20}
-        {@const mid = id}
+      {#if id < index * numMessages && id >= index * numMessages - numMessages}
         <div class=" login-text msg flex flex-row">
           <img
-            class="avatar"
+            class="avatar select-none"
             src="https://api.dicebear.com/6.x/personas/svg?seed={message.expand
               ?.user?.username}"
             alt="avatar"
             width="40px"
           />
           <div>
-            <small>
+            <small class="select-none">
               Sent by @{message.expand?.user?.username}
             </small>
             <p class="msg-text login-text">{message.text}</p>
@@ -108,10 +126,9 @@
             <button
               on:click={() => deleteMessage(message.id)}
               on:keypress={() => deleteMessage(message.id)}
-              class="inline-block h-fit w-fit justify-items-end ml-auto align-middle"
+              class="inline-block h-fit w-fit justify-items-end ml-auto align-middle delete-msg"
             >
               <Icon
-                class="delete-msg justify-self-end align-middle"
                 icon="fa6-solid:x"
                 width="12"
                 height="12"
@@ -122,7 +139,7 @@
       {/if}
     {/each}
   </div>
-  <span class="flex flex-row">
+  <span class="flex flex-row ">
     {#key isDisabledb}
       <button
         disabled={isDisabledb}
@@ -142,7 +159,7 @@
         type="text"
         bind:value={newMessage}
       />
-      <button class="login-button" type="submit">Send</button>
+      <button class="login-button select-none" type="submit">Send</button>
     </form>
     {#key isDisabledf}
       <button
