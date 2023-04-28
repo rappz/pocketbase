@@ -57,10 +57,10 @@
                 transition-all duration-300 ease-linear
                 cursor-pointer;
   }
-  .messages{
+  .messages {
     @apply bg-gray-900 text-white shadow-lg w-72 h-auto 
     m-2 rounded-md
-    text-base font-bold
+    text-base font-bold;
   }
   .delete-msg {
     @apply flex  mt-2 mb-2 mr-2 ml-auto shadow-lg
@@ -70,7 +70,7 @@
                 transition-all duration-300 ease-linear
                 cursor-pointer;
   }
-  .global{
-    @apply bg-gray-700
+  .global {
+    @apply bg-gray-700;
   }
 }
