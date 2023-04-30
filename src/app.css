@@ -62,15 +62,70 @@
     m-2 rounded-md
     text-base font-bold;
   }
+  .msg {
+    @apply flex relative m-2 mt-2 mb-2 rounded-md shadow-md text-center
+    text-green-500 bg-gray-700 placeholder-green-500
+    focus:bg-green-600 focus:text-gray-900 focus:placeholder-gray-900
+    text-xs font-bold;
+  }
+  .msg-text {
+    @apply relative m-2 mt-2 mb-2 rounded-md  text-center
+    text-green-500 bg-gray-700 placeholder-green-500
+    focus:bg-green-600 focus:text-gray-900 focus:placeholder-gray-900
+    text-xs font-bold;
+  }
   .delete-msg {
-    @apply flex  mt-2 mb-2 mr-2 ml-auto shadow-lg
-                bg-gray-800 text-green-500
+    @apply flex h-fit   mt-auto mb-auto mr-2 ml-auto shadow-lg
+                bg-gray-900 text-green-500
                 hover:bg-red-600 hover:text-white
                 rounded-3xl hover:rounded-xl
                 transition-all duration-300 ease-linear
                 cursor-pointer;
   }
+  .avatar {
+    @apply select-none  mb-0 bottom-0 h-auto absolute left-4 place-self-end ;
+  }
+  .msg-component {
+    @apply flex flex-col items-center justify-center h-screen;
+  }
   .global {
     @apply bg-gray-700;
+  }
+  .ticket-button {
+    @apply relative flex   text-sm
+                   shadow-lg m-2 mt-2 mb-2
+                  bg-gray-800 text-green-500
+                  hover:bg-green-600 hover:text-white
+                  rounded-3xl hover:rounded-xl
+                  transition-all duration-300 ease-linear
+                  cursor-pointer;
+  }
+  .summary-text {
+    @apply relative ml-14 flex-wrap m-2 mt-2 mb-2 rounded-md text-center 
+      text-xs font-bold;
+  }
+  .ticket-component {
+    @apply flex  items-center justify-start ml-24 h-screen;
+  }
+  .ticketing {
+    @apply bg-gray-900 text-white shadow-lg w-72 h-auto 
+    m-2 rounded-md
+    text-base font-bold;
+  }
+  .ticketing-area {
+    @apply bg-gray-900 shadow-lg w-2/3 h-1/2   text-green-500
+    m-2 rounded-md text-base font-bold;
+  }
+  .ticket-text-area{
+    @apply bg-gray-600 placeholder:text-green-500 text-green-500 
+    m-2  w-11/12 h-2/3 resize-none text-left flex-wrap rounded-md ;
+  }
+  .ticket-text {
+    @apply relative left-1/4 text-left scale-150  w-1/6 mt-3 mb-2 rounded-md
+      text-xs font-bold bg-gray-700 placeholder:text-green-500 text-green-500;
+  }
+  .assign-box {
+    @apply relative  m-2 mt-2 mb-2 rounded-md
+      text-xs font-bold bg-gray-700 placeholder:text-green-500 text-green-500;
   }
 }

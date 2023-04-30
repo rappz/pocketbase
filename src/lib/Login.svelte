@@ -1,12 +1,11 @@
 <script lang="ts">
   import { currentUser, pb } from "./pokectbase";
-  import { writable } from "svelte/store";
 
   let username: string;
   let password: string;
   let name: string;
   let email: string;
-  let newSignUp:boolean =false;
+  let newSignUp: boolean = false;
 
   async function login() {
     await pb.collection("users").authWithPassword(username, password);
@@ -32,20 +31,10 @@
   export function signOut() {
     pb.authStore.clear();
   }
-
-  function continueLogin() {}
 </script>
 
 <div class="flex items-center justify-center h-full w-full mt-0">
-  {#if $currentUser}
-    <div class="flex flex-col">
-      <p class="text-green-500">Signed in as {$currentUser.username}</p>
-      <button class="login-button flex" on:click={signOut}>Logout</button>
-      <button class="login-button flex" on:click={continueLogin}
-        >Continue</button
-      >
-    </div>
-  {:else}
+  {#if !$currentUser}
     <form on:submit|preventDefault>
       <input
         placeholder="Username"
@@ -63,30 +52,31 @@
         required
       />
       {#if newSignUp}
-         <!-- content here -->
-      <input
-        placeholder="Name"
-        type="text"
-        bind:value={name}
-        class="login-text flex justify-center"
-        required
-      />
-
-      <input
-        placeholder="Email"
-        type="email"
-        bind:value={email}
-        class="login-text flex justify-center"
-        required
+        <!-- content here -->
+        <input
+          placeholder="Name"
+          type="text"
+          bind:value={name}
+          class="login-text flex justify-center"
+          required
         />
-        {/if}
+
+        <input
+          placeholder="Email"
+          type="email"
+          bind:value={email}
+          class="login-text flex justify-center"
+          required
+        />
+      {/if}
       <div class="flex">
-        
         {#if newSignUp}
-        <button class="login-button" on:click={signUpSubmit}>Submit</button>
+          <button class="login-button" on:click={signUpSubmit}>Submit</button>
         {:else}
-        <button class="login-button" on:click={login}>Login</button>
-        <button class="login-button" on:click={()=>(newSignUp=true)}>Sign Up</button>
+          <button class="login-button" on:click={login}>Login</button>
+          <button class="login-button" on:click={() => (newSignUp = true)}
+            >Sign Up</button
+          >
         {/if}
       </div>
     </form>

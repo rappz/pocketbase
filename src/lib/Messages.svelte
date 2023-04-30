@@ -3,7 +3,6 @@
   import { currentUser, pb } from "./pokectbase";
   import Icon from "@iconify/svelte";
 
-  let selectedId: string;
   let newMessage: string;
   let messages = [];
   let unsubscribe: () => void;
@@ -11,15 +10,16 @@
   let isDisabledb: boolean = true;
   let isDisabledf: boolean = false;
   let innerHeight;
-  let mid;
   let numMessages;
 
-  $: numMessages = Math.floor((innerHeight-72)/57)
-      
-   $:{   if(messages.length >= numMessages){
-        isDisabledf = false;
-        console.log("dyn ",isDisabledf)
-      };}
+  $: numMessages = Math.floor((innerHeight - 72) / 57);
+
+  $: {
+    if (messages.length >= numMessages) {
+      isDisabledf = false;
+      console.log("dyn ", isDisabledf);
+    }
+  }
 
   onMount(async () => {
     const resultList = await pb.collection("messages").getList(1, 250, {
@@ -35,7 +35,7 @@
           const user = await pb.collection("users").getOne(record.user);
           record.expand = { user };
           messages = [...messages, record];
-          console.log(messages.length)
+          console.log(messages.length);
         }
         if (action === "delete") {
           messages = messages.filter((m) => m.id !== record.id);
@@ -71,13 +71,13 @@
       isDisabledb = false;
       if (index >= totalPages) {
         isDisabledf = true;
-  console.log(isDisabledb);
-  console.log(isDisabledf);
+        console.log(isDisabledb);
+        console.log(isDisabledf);
       }
     } else {
       isDisabledf = true;
-  console.log(isDisabledb);
-  console.log(isDisabledf);
+      console.log(isDisabledb);
+      console.log(isDisabledf);
     }
   }
   function prevPage() {
@@ -89,28 +89,29 @@
       if (index <= 1) {
         //console.log('back is disabled2');
         isDisabledb = true;
-  console.log(isDisabledb);
-  console.log(isDisabledf);
+        console.log(isDisabledb);
+        console.log(isDisabledf);
       }
     } else {
       //console.log('back is disabled');
       isDisabledb = true;
-  console.log(isDisabledb);
-  console.log(isDisabledf);
+      console.log(isDisabledb);
+      console.log(isDisabledf);
     }
   }
 
   //console.log(isDisabledb);
   //console.log(isDisabledf);
 </script>
-<svelte:window bind:innerHeight/>
-<div class="flex flex-col items-center justify-center h-screen">
-  <div class="messages h-fit overflow-y-auto">
+
+<svelte:window bind:innerHeight />
+<div class="msg-component">
+  <div class="messages">
     {#each messages.slice().reverse() as message, id (message.id)}
       {#if id < index * numMessages && id >= index * numMessages - numMessages}
-        <div class=" login-text msg flex flex-row">
+        <div class="msg">
           <img
-            class="avatar select-none"
+            class="avatar"
             src="https://api.dicebear.com/6.x/personas/svg?seed={message.expand
               ?.user?.username}"
             alt="avatar"
@@ -120,18 +121,19 @@
             <small class="select-none">
               Sent by @{message.expand?.user?.username}
             </small>
-            <p class="msg-text login-text">{message.text}</p>
+            <p class="msg-text">{message.text}</p>
           </div>
           {#if $currentUser.username == message.expand?.user?.username}
             <button
               on:click={() => deleteMessage(message.id)}
               on:keypress={() => deleteMessage(message.id)}
-              class="inline-block h-fit w-fit justify-items-end ml-auto align-middle delete-msg"
+              class="delete-msg"
             >
               <Icon
                 icon="fa6-solid:x"
-                width="12"
-                height="12"
+                width="10"
+                height="16"
+                class="w-5 h-5 scale-50"
               />
             </button>
           {/if}
@@ -139,7 +141,7 @@
       {/if}
     {/each}
   </div>
-  <span class="flex flex-row ">
+  <span class="flex flex-row">
     {#key isDisabledb}
       <button
         disabled={isDisabledb}
