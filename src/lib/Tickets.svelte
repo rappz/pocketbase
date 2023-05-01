@@ -5,7 +5,7 @@
   let innerHeight;
   let tickets = [];
   let unsubscribe: () => void;
-  let selectedTicket={summary:"Summary", description:"Description",expand:{customer:{name:"Customer Name"},assignedTo:{name:"Technician Name"}},group:"Group Name"};
+  let selectedTicket={summary:"Summary", description:"Description",expand:{customer:{name:"Customer Name"},assignedTo:{name:"Technician Name"}},group:"Group Name",files: "None"};
 
   onMount(async () => {
     const resultList = await pb.collection("ticketing").getList(1, 250, {
